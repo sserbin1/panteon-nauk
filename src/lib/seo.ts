@@ -1,54 +1,64 @@
-import type { Metadata } from 'next'
-import { siteConfig } from '../../site.config'
-import type { BlogPost } from './blog'
+import type { Metadata } from "next"
+import { siteConfig } from "../../site.config"
 
-interface PageMetadataInput {
+interface PageMetaProps {
   title: string
   description: string
-  path?: string
+  path: string
   keywords?: string[]
 }
 
-export function generatePageMetadata(page: PageMetadataInput): Metadata {
-  const url = page.path ? `${siteConfig.url}${page.path}` : siteConfig.url
-
+export function generatePageMetadata({ title, description, path, keywords }: PageMetaProps): Metadata {
+  const url = `${siteConfig.url}${path}`
   return {
-    title: page.title,
-    description: page.description,
-    keywords: page.keywords,
-    metadataBase: new URL(siteConfig.url),
-    alternates: {
-      canonical: url,
-    },
+    title,
+    description,
+    keywords: keywords || siteConfig.keywords,
+    alternates: { canonical: url },
     openGraph: {
-      title: page.title,
-      description: page.description,
+      title,
+      description,
       url,
       siteName: siteConfig.name,
-      type: 'website',
+      locale: "uk_UA",
     },
+    robots: { index: true, follow: true },
   }
 }
 
-export function generateArticleJsonLd(post: BlogPost): Record<string, unknown> {
+export function generateArticleJsonLd(post: { title: string; excerpt: string; publishedAt: string; slug: string }) {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
+    "@context": "https://schema.org",
+    "@type": "Article",
     headline: post.title,
-    description: post.metaDescription || post.excerpt,
+    description: post.excerpt,
     datePublished: post.publishedAt,
-    author: {
-      '@type': 'Organization',
-      name: siteConfig.name,
-    },
+    author: { "@type": "Organization", name: siteConfig.name },
     publisher: {
-      '@type': 'Organization',
+      "@type": "Organization",
       name: siteConfig.name,
+      url: siteConfig.url,
     },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `${siteConfig.url}/blog/${post.slug}/`,
+    mainEntityOfPage: `${siteConfig.url}/blog/${post.slug}/`,
+  }
+}
+
+export function generateOrganizationJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteConfig.name,
+    url: siteConfig.url,
+    description: siteConfig.description,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Київ",
+      addressCountry: "UA",
     },
-    keywords: post.keywords?.join(', '),
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: siteConfig.email,
+      contactType: "editorial",
+    },
   }
 }
