@@ -1,24 +1,27 @@
-import type { Metadata } from 'next'
-import { siteConfig } from '../../site.config'
-import './globals.css'
+import type { Metadata } from "next"
+import "./globals.css"
+import Header from "@/components/layout/Header"
+import Footer from "@/components/layout/Footer"
+import { siteConfig } from "../../site.config"
 
 export const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
-  },
+  title: { default: "Пантеон Наук — Дослідження акустики та ергономіки робочого простору", template: "%s | Пантеон Наук" },
   description: siteConfig.description,
+  keywords: siteConfig.keywords,
   metadataBase: new URL(siteConfig.url),
+  openGraph: { type: "website", locale: "uk_UA", siteName: siteConfig.name },
+  robots: { index: true, follow: true },
+  icons: { icon: "/images/favicon.svg" },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang={siteConfig.language}>
-      <body>{children}</body>
+    <html lang="uk">
+      <body className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </body>
     </html>
   )
 }
