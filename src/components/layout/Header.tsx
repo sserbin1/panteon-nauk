@@ -6,8 +6,9 @@ import { siteConfig } from "../../../site.config"
 
 const navLinks = [
   { href: "/", label: "Головна" },
-  { href: "/#doslidzhennya", label: "Дослідження" },
-  { href: "/#rishennya", label: "Рішення" },
+  { href: "/akustyka-ofisu/", label: "Акустика офісу" },
+  { href: "/doslidzhennya/", label: "Дослідження" },
+  { href: "/praktychni-rishennya/", label: "Рішення" },
   { href: "/blog/", label: "Публікації" },
   { href: "/#kontakty", label: "Контакти" },
 ]
