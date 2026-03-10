@@ -1,16 +1,7 @@
-import { remark } from 'remark'
-import remarkGfm from 'remark-gfm'
-import remarkRehype from 'remark-rehype'
-import rehypeSanitize from 'rehype-sanitize'
-import rehypeStringify from 'rehype-stringify'
+import { remark } from "remark"
+import html from "remark-html"
 
 export async function renderMarkdown(content: string): Promise<string> {
-  const result = await remark()
-    .use(remarkGfm)
-    .use(remarkRehype)
-    .use(rehypeSanitize)
-    .use(rehypeStringify)
-    .process(content)
-
+  const result = await remark().use(html).process(content)
   return result.toString()
 }
