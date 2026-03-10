@@ -1,4 +1,4 @@
-import { MetadataRoute } from "next"
+import type { MetadataRoute } from "next"
 import { getAllPosts } from "@/lib/blog"
 import { siteConfig } from "../../site.config"
 
@@ -14,6 +14,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }))
   return [
     { url: siteConfig.url, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
+    { url: `${siteConfig.url}/akustyka-ofisu/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+    { url: `${siteConfig.url}/doslidzhennya/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+    { url: `${siteConfig.url}/praktychni-rishennya/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
     { url: `${siteConfig.url}/blog/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
     ...blogUrls,
   ]
