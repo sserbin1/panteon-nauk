@@ -10,5 +10,5 @@ export const siteConfig = {
   email: "info@panteon-nauk.org.ua",
   workingHours: "Пн-Пт: 09:00 - 18:00",
   season: "",
-  crmWebhook: "https://office.silent-box.com/api/leads"
+  crmWebhookUrl: "https://office.silent-box.com/api/leads"
 }
