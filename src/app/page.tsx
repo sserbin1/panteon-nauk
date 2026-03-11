@@ -31,9 +31,8 @@ export default function HomePage() {
     <>
       {/* Hero */}
       <section className="relative min-h-[85vh] flex items-center justify-center bg-[var(--primary)]">
-        <div className="absolute inset-0 opacity-10">
-          <svg width="100%" height="100%"><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5" /></pattern><rect width="100%" height="100%" fill="url(#grid)" /></svg>
-        </div>
+        <img src="/images/blog/hero.webp" alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-[var(--primary)]/80" />
         <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto pt-24">
           <span className="inline-block px-4 py-1.5 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium mb-6 border border-white/20">Дослідницький портал</span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight" style={{ fontFamily: "Merriweather, serif" }}>
