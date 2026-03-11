@@ -80,6 +80,9 @@ export default function DoslidzhennyaPage() {
           >
             Дослідження
           </h1>
+          <div className="my-8 overflow-hidden border border-[var(--border)]">
+            <img src="/images/research-data.png" alt="Аналіз акустичних даних" width={1200} height={675} className="w-full h-auto object-cover" />
+          </div>
 
           <p
             style={{
