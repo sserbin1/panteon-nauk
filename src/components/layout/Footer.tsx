@@ -1,38 +1,61 @@
-import Link from "next/link"
-import { siteConfig } from "../../../site.config"
+import Link from "next/link";
+import { siteConfig } from "../../site.config";
+
+const navLinks = [
+  { label: "Акустика офісу", href: "/akustyka-ofisu/" },
+  { label: "Дослідження", href: "/doslidzhennya/" },
+  { label: "Практичні рішення", href: "/praktychni-rishennya/" },
+  { label: "Публікації", href: "/blog/" },
+];
 
 export default function Footer() {
   return (
-    <footer className="bg-[var(--text)] text-white pt-12 pb-6">
-      <div className="w-full max-w-7xl mx-auto px-4">
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
+    <footer className="footer-journal">
+      <div className="footer-journal-accent" />
+
+      <div className="footer-journal-inner">
+        <div className="footer-journal-grid">
+          {/* Column 1: About */}
           <div>
-            <h3 className="text-xl font-bold mb-3" style={{ fontFamily: "Merriweather, serif" }}>{siteConfig.name}</h3>
-            <p className="text-gray-400 text-sm leading-relaxed">{siteConfig.description}</p>
+            <h3 className="footer-journal-heading">Про портал</h3>
+            <p className="footer-journal-text">
+              {siteConfig.name} — дослідницький портал акустики та ергономіки
+              робочого простору. Наукові публікації, аналітика та практичні
+              рекомендації.
+            </p>
           </div>
+
+          {/* Column 2: Navigation */}
           <div>
-            <h4 className="font-semibold mb-3 text-gray-300">{"Навігація"}</h4>
-            <ul className="space-y-2">
-              {[{ href: "/", label: "Головна" }, { href: "/#doslidzhennya", label: "Дослідження" }, { href: "/#rishennya", label: "Рішення" }, { href: "/blog/", label: "Публікації" }, { href: "/#kontakty", label: "Контакти" }].map((link) => (
+            <h3 className="footer-journal-heading">Навігація</h3>
+            <ul className="footer-journal-links">
+              {navLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-gray-400 hover:text-white text-sm no-underline transition-colors">{link.label}</Link>
+                  <Link href={link.href}>{link.label}</Link>
                 </li>
               ))}
             </ul>
           </div>
+
+          {/* Column 3: Contacts */}
           <div>
-            <h4 className="font-semibold mb-3 text-gray-300">{"Контакти"}</h4>
-            <div className="space-y-2 text-sm text-gray-400">
-              <p>{siteConfig.address}</p>
-              <p>{siteConfig.email}</p>
-              <p>{siteConfig.workingHours}</p>
-            </div>
+            <h3 className="footer-journal-heading">Контакти</h3>
+            <ul className="footer-journal-contact">
+              <li>{siteConfig.address}</li>
+              <li>
+                <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+              </li>
+              <li>{siteConfig.workingHours}</li>
+            </ul>
           </div>
         </div>
-        <div className="border-t border-gray-700 pt-6 text-center text-sm text-gray-500">
-          {"\u00A9 "}{new Date().getFullYear()}{" "}{siteConfig.name}{". \u0412\u0441\u0456 \u043F\u0440\u0430\u0432\u0430 \u0437\u0430\u0445\u0438\u0449\u0435\u043D\u0456."}
+
+        {/* Copyright bar */}
+        <div className="footer-journal-copyright">
+          &copy; {new Date().getFullYear()} {siteConfig.name}. Усі права
+          захищені.
         </div>
       </div>
     </footer>
-  )
+  );
 }
