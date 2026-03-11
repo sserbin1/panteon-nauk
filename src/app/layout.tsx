@@ -1,4 +1,3 @@
-import Script from "next/script"
 import type { Metadata } from "next"
 import "./globals.css"
 import Header from "@/components/layout/Header"
@@ -18,8 +17,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="uk">
-      <head>
-        <Script defer src="http://46.224.111.10:3100/script.js" data-website-id="1f8b4bdf-6804-4f45-8cc7-80c4f0b0567e" />
+      <head><script defer src="http://46.224.111.10:3100/script.js" data-website-id="1f8b4bdf-6804-4f45-8cc7-80c4f0b0567e"></script>
       </head>
       <body className="min-h-screen flex flex-col">
         <Header />
