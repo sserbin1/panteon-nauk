@@ -15,9 +15,16 @@ export interface BlogPost {
   publishedAt: string
   category?: string
   language?: string
+  image?: string
 }
 
 const BLOG_DIR = path.join(process.cwd(), 'content', 'blog')
+
+function getImagePath(slug: string): string | undefined {
+  const imgPath = path.join(process.cwd(), 'public', 'images', 'blog', `${slug}.webp`)
+  if (fs.existsSync(imgPath)) return `/images/blog/${slug}.webp`
+  return undefined
+}
 
 export function getAllPosts(): BlogPost[] {
   const files = fs.readdirSync(BLOG_DIR).filter((f) => f.endsWith('.md'))
@@ -48,6 +55,7 @@ export function getPostBySlug(slug: string): BlogPost {
     publishedAt: data.publishedAt || '',
     category: data.category,
     language: data.language,
+    image: data.image || getImagePath(slug),
   }
 }
 
