@@ -87,6 +87,9 @@ export default function PraktychniRishennyaPage() {
           >
             Практичні рішення
           </h1>
+          <div className="my-8 overflow-hidden border border-[var(--border)]">
+            <img src="/images/office-acoustics.png" alt="Практичні рішення акустики офісу" width={1200} height={675} className="w-full h-auto object-cover" />
+          </div>
 
           <p
             style={{
