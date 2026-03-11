@@ -34,6 +34,7 @@ const articles = [
     num: "04",
     title: "Як встановити офісну кабіну",
     href: "/blog/yak-vstanovyty-ofisnu-kabinu/",
+    image: "/images/blog/yak-vstanovyty-ofisnu-kabinu.webp",
     summary:
       "Покрокова інструкція з монтажу: підготовка приміщення, вимоги до підлоги, електропідключення та введення в експлуатацію.",
   },
@@ -41,6 +42,7 @@ const articles = [
     num: "05",
     title: "Zoom-кабіна для офісу",
     href: "/blog/zoom-kabina-dlya-ofisu/",
+    image: "/images/blog/zoom-kabina-dlya-ofisu.webp",
     summary:
       "Спеціалізовані рішення для відеоконференцій: акустичні вимоги, освітлення, камера та мікрофонне обладнання для якісного зв'язку.",
   },
