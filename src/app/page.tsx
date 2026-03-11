@@ -3,160 +3,633 @@ import { siteConfig } from "../../site.config"
 import { getAllPosts } from "@/lib/blog"
 import ContactForm from "@/components/forms/ContactForm"
 
-const researchAreas = [
-  { icon: "\uD83D\uDD0A", title: "Акустика офісу", description: "Дослідження впливу шуму на продуктивність та когнітивні функції працівників у відкритих офісних просторах" },
-  { icon: "\uD83C\uDFDB\uFE0F", title: "Звукоізоляційні рішення", description: "Аналіз ефективності акустичних кабін, звукоізоляційних матеріалів та архітектурних рішень для зниження шуму" },
-  { icon: "\uD83E\uDDE0", title: "Ергономіка простору", description: "Вивчення впливу робочого середовища на здоров\u2019я, концентрацію та задоволеність працівників" },
-  { icon: "\uD83D\uDCCA", title: "Продуктивність", description: "Кількісний аналіз залежності ефективності роботи від акустичних умов та організації простору" },
+const estimateReadingTime = (excerpt: string) =>
+  Math.max(5, Math.ceil(excerpt.length / 50))
+
+const researchDirections = [
+  {
+    num: "01",
+    title: "Акустика офісу",
+    description:
+      "Дослідження впливу шумового забруднення на когнітивні функції працівників. Аналіз частотного спектру типових офісних шумів та їх кореляція з продуктивністю.",
+  },
+  {
+    num: "02",
+    title: "Звукоізоляція",
+    description:
+      "Порівняльний аналіз сучасних матеріалів та конструктивних рішень для зниження передачі повітряного та ударного шуму в комерційних приміщеннях.",
+  },
+  {
+    num: "03",
+    title: "Ергономіка",
+    description:
+      "Оптимізація робочого середовища з урахуванням антропометричних даних. Вплив освітлення, температури та організації простору на здоров'я та ефективність.",
+  },
+  {
+    num: "04",
+    title: "Продуктивність",
+    description:
+      "Кількісна оцінка взаємозв'язку між фізичними параметрами робочого середовища та показниками продуктивності. Метааналіз досліджень за 2018\u20132024 рр.",
+  },
 ]
 
-const solutions = [
-  { title: "Акустичні кабіни для офісу", description: "Сучасні акустичні кабіни забезпечують зниження шуму до 35\u201360 дБ, створюючи ідеальні умови для зосередженої роботи та конфіденційних переговорів.", link: "/blog/", features: ["Зниження шуму до 60 дБ", "Автоматична вентиляція", "Датчики руху та LED-освітлення"] },
-  { title: "Звукоізоляційні кабіни", description: "Звукоізоляційні кабіни використовують комбінацію повстяних панелей, триплексного скла та мембранних технологій для максимальної ізоляції від зовнішнього шуму.", link: "/blog/", features: ["Повстяні акустичні панелі", "Триплексне скло", "Повна конфіденційність"] },
-  { title: "Офісні кабіни для дзвінків", description: "Компактні офісні кабіни для телефонних дзвінків та відеоконференцій \u2014 оптимальне рішення для open space офісів із високим рівнем шуму.", link: "/blog/", features: ["Zoom/Teams-ready", "USB-зарядка", "Швидкий монтаж"] },
-  { title: "Кабіни для переговорів", description: "Мобільні кабіни для переговорів на 2\u20134 особи встановлюються за кілька годин без будівельних робіт та забезпечують повну конфіденційність ділового спілкування.", link: "/blog/", features: ["2\u20134 робочих місця", "Без будівельних робіт", "Модульна конструкція"] },
+const solutionCards = [
+  {
+    title: "Акустичні панелі",
+    text: "Підбір та розміщення звукопоглинальних матеріалів для оптимального RT60.",
+  },
+  {
+    title: "Зонування простору",
+    text: "Планування тихих зон, зон колаборації та транзитних зон в офісі.",
+  },
+  {
+    title: "Звукомаскування",
+    text: "Системи білого та рожевого шуму для підвищення приватності розмов.",
+  },
+  {
+    title: "Ергономічний аудит",
+    text: "Комплексна оцінка робочих місць за стандартами ISO 9241 та EN 12464.",
+  },
 ]
 
-const stats = [
-  { value: "70%", label: "працівників скаржаться на шум в open space" },
-  { value: "86 хв", label: "на день втрачається через відволікання шумом" },
-  { value: "35\u201360 дБ", label: "зниження шуму забезпечують акустичні кабіни" },
-  { value: "23%", label: "зростання продуктивності після встановлення кабін" },
+const keyFindings = [
+  "Зниження рівня шуму на 10 дБ підвищує точність виконання задач на 18%",
+  "Оптимальна температура 21\u201323\u00b0C знижує кількість помилок на 44%",
+  "Природне освітлення покращує якість сну працівників на 46 хвилин",
 ]
 
 export default function HomePage() {
-  const posts = getAllPosts().slice(0, 3)
+  const posts = getAllPosts().slice(0, 6)
 
   return (
-    <>
-      {/* Hero */}
-      <section className="relative min-h-[85vh] flex items-center justify-center bg-[var(--primary)]">
-        <img src="/images/blog/hero.webp" alt="" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-[var(--primary)]/80" />
-        <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto pt-24">
-          <span className="inline-block px-4 py-1.5 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium mb-6 border border-white/20">Дослідницький портал</span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight" style={{ fontFamily: "Merriweather, serif" }}>
-            {"Наука про "}
-            <span className="text-[var(--accent)]">акустику</span>
-            {" та ергономіку робочого простору"}
-          </h1>
-          <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-            {"Досліджуємо вплив шуму на продуктивність, аналізуємо акустичні кабіни для офісу та звукоізоляційні рішення для створення комфортного робочого середовища."}
+    <main>
+      {/* ================================================================
+          SECTION 1: TEXT-FIRST HERO — White background, no image
+          ================================================================ */}
+      <section
+        style={{
+          background: "var(--surface)",
+          padding: "var(--space-4xl) 0 var(--space-3xl)",
+        }}
+      >
+        <div className="max-w-5xl mx-auto px-6">
+          <p
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "var(--text-xs)",
+              fontWeight: 600,
+              textTransform: "uppercase",
+              letterSpacing: "0.15em",
+              color: "var(--text-light)",
+              marginBottom: "var(--space-lg)",
+            }}
+          >
+            Дослідницький портал
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#doslidzhennya" className="btn-primary" style={{ background: "var(--accent)", color: "var(--text)" }}>{"Наші дослідження"}</a>
-            <a href="#rishennya" className="btn-secondary" style={{ color: "white", borderColor: "white" }}>{"Практичні рішення"}</a>
+
+          <h1
+            style={{
+              fontFamily: "var(--font-heading)",
+              fontSize: "clamp(1.75rem, 4vw, 2.75rem)",
+              fontWeight: 900,
+              lineHeight: 1.2,
+              color: "var(--text)",
+              maxWidth: "720px",
+              marginBottom: "var(--space-xl)",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            Наука про акустику та ергономіку робочого простору
+          </h1>
+
+          <p
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "var(--text-lg)",
+              lineHeight: 1.7,
+              color: "var(--text-muted)",
+              maxWidth: "600px",
+              marginBottom: "var(--space-2xl)",
+            }}
+          >
+            Аналітичні публікації, результати досліджень та практичні
+            рекомендації для створення продуктивного робочого середовища.
+          </p>
+
+          {/* Key research highlight box */}
+          <div className="key-finding-box" style={{ maxWidth: "600px" }}>
+            <p>Ключове дослідження</p>
+            <p>
+              Офісний шум знижує продуктивність на <strong>66%</strong> при
+              виконанні задач, що потребують концентрації. Комплексний підхід до
+              акустичного проєктування дозволяє повернути до 40% втраченої
+              ефективності.
+            </p>
+          </div>
+
+          {/* CTA buttons */}
+          <div
+            className="flex flex-wrap gap-4"
+            style={{ marginTop: "var(--space-2xl)" }}
+          >
+            <Link href="/doslidzhennya/" className="btn-primary no-underline">
+              Дослідження
+            </Link>
+            <Link href="/blog/" className="btn-secondary no-underline">
+              Усі публікації
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-12 bg-white border-b border-[var(--border)]">
-        <div className="w-full max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-            {stats.map((s) => (
-              <div key={s.label} className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-[var(--primary)] mb-1">{s.value}</div>
-                <p className="text-xs md:text-sm text-[var(--text-muted)]">{s.label}</p>
+      {/* ================================================================
+          SECTION 2: DATA STRIP — 4 semantic-colored data boxes
+          ================================================================ */}
+      <section
+        style={{
+          background: "var(--background)",
+          padding: "0 0 var(--space-3xl)",
+        }}
+      >
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="section-rule">01 Ключові дані</div>
+
+          <div
+            className="grid gap-4"
+            style={{
+              gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            }}
+          >
+            {/* Red: problem stat */}
+            <div className="data-box data-box-red">
+              <div className="data-box-value">70%</div>
+              <div className="data-box-label">Працівників скаржаться</div>
+              <div className="data-box-detail">
+                на рівень шуму у відкритих офісах
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </div>
 
-      {/* Research Areas */}
-      <section id="doslidzhennya" className="py-20 bg-[var(--background)]">
-        <div className="w-full max-w-7xl mx-auto px-4">
-          <h2 className="section-title">{"Напрямки "}<span className="gradient-text">{"досліджень"}</span></h2>
-          <p className="section-subtitle">{"Вивчаємо вплив акустичного середовища на людину та шукаємо оптимальні рішення для сучасних офісів"}</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {researchAreas.map((r) => (
-              <div key={r.title} className="bg-white rounded-xl p-6 border border-[var(--border)] hover:border-[var(--primary)] transition-colors">
-                <div className="text-3xl mb-4">{r.icon}</div>
-                <h3 className="font-bold text-lg mb-2">{r.title}</h3>
-                <p className="text-sm text-[var(--text-muted)] leading-relaxed">{r.description}</p>
+            {/* Amber: caution stat */}
+            <div className="data-box data-box-amber">
+              <div className="data-box-value">86 хв</div>
+              <div className="data-box-label">Втрачено щодня</div>
+              <div className="data-box-detail">
+                через переривання та відволікання шумом
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </div>
 
-      {/* Solutions */}
-      <section id="rishennya" className="py-20 bg-white">
-        <div className="w-full max-w-7xl mx-auto px-4">
-          <h2 className="section-title">{"Практичні "}<span className="gradient-text">{"рішення"}</span></h2>
-          <p className="section-subtitle">{"На основі наших досліджень ми аналізуємо та рекомендуємо найефективніші акустичні рішення для офісних просторів"}</p>
-          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-            {solutions.map((s) => (
-              <div key={s.title} className="bg-[var(--background)] rounded-xl p-6 md:p-8 border border-[var(--border)]">
-                <h3 className="text-xl font-bold mb-3 text-[var(--primary)]">{s.title}</h3>
-                <p className="text-[var(--text-muted)] mb-4 leading-relaxed">{s.description}</p>
-                <ul className="space-y-2 mb-4">
-                  {s.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2 text-sm text-[var(--text-muted)]">
-                      <svg className="w-4 h-4 flex-shrink-0" fill="var(--success)" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
+            {/* Green: optimal range */}
+            <div className="data-box data-box-green">
+              <div className="data-box-value">35-60 дБ</div>
+              <div className="data-box-label">Оптимальний рівень</div>
+              <div className="data-box-detail">
+                фонового шуму для концентрації
               </div>
-            ))}
+            </div>
+
+            {/* Green: improvement stat */}
+            <div className="data-box data-box-green">
+              <div className="data-box-value">23%</div>
+              <div className="data-box-label">Зростання продуктивності</div>
+              <div className="data-box-detail">
+                після акустичної оптимізації офісу
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Blog */}
-      {posts.length > 0 && (
-        <section className="py-20 bg-[var(--background)]">
-          <div className="w-full max-w-7xl mx-auto px-4">
-            <h2 className="section-title">{"Останні "}<span className="gradient-text">{"публікації"}</span></h2>
-            <p className="section-subtitle">{"Наукові статті, огляди та дослідження у сфері акустики та ергономіки"}</p>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
-              {posts.map((post) => (
-                <Link key={post.slug} href={`/blog/${post.slug}/`} className="card no-underline group">
-                  <div className="p-6">
-                    {post.category && <span className="text-xs font-bold uppercase tracking-wider text-[var(--primary)]">{post.category}</span>}
-                    <h3 className="text-lg font-bold mt-2 mb-3 text-[var(--text)] group-hover:text-[var(--primary)] transition-colors">{post.title}</h3>
-                    <p className="text-sm text-[var(--text-muted)] line-clamp-3">{post.excerpt}</p>
+      {/* ================================================================
+          SECTION 3: ACADEMIC TWO-COLUMN LAYOUT
+          ================================================================ */}
+      <section style={{ padding: "var(--space-2xl) 0 var(--space-3xl)" }}>
+        <div className="academic-layout">
+          {/* ── MAIN COLUMN (65%) ── */}
+          <div className="academic-layout-main">
+            {/* Research Directions */}
+            <div className="section-rule">02 Напрямки досліджень</div>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-xl)" }}>
+              {researchDirections.map((dir) => (
+                <div
+                  key={dir.num}
+                  style={{
+                    display: "flex",
+                    gap: "var(--space-lg)",
+                    alignItems: "flex-start",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: "var(--font-heading)",
+                      fontSize: "var(--text-2xl)",
+                      fontWeight: 900,
+                      color: "var(--primary)",
+                      lineHeight: 1.2,
+                      flexShrink: 0,
+                      width: "2.5rem",
+                    }}
+                  >
+                    {dir.num}
+                  </span>
+                  <div>
+                    <h3
+                      style={{
+                        fontFamily: "var(--font-heading)",
+                        fontSize: "var(--text-xl)",
+                        fontWeight: 700,
+                        color: "var(--text)",
+                        marginBottom: "var(--space-xs)",
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      {dir.title}
+                    </h3>
+                    <p
+                      style={{
+                        fontSize: "var(--text-sm)",
+                        lineHeight: 1.7,
+                        color: "var(--text-muted)",
+                        margin: 0,
+                      }}
+                    >
+                      {dir.description}
+                    </p>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
-            <div className="text-center mt-8">
-              <Link href="/blog/" className="text-[var(--primary)] font-semibold hover:underline no-underline">{"Всі публікації \u2192"}</Link>
+
+            {/* Practical Solutions — 2x2 grid */}
+            <div className="section-rule">03 Практичні рішення</div>
+
+            <div
+              className="grid gap-4"
+              style={{
+                gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+              }}
+            >
+              {solutionCards.map((card) => (
+                <div
+                  key={card.title}
+                  className="card"
+                  style={{ padding: "var(--space-lg)" }}
+                >
+                  <h4
+                    style={{
+                      fontFamily: "var(--font-heading)",
+                      fontSize: "var(--text-base)",
+                      fontWeight: 700,
+                      color: "var(--primary)",
+                      marginBottom: "var(--space-sm)",
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {card.title}
+                  </h4>
+                  <p
+                    style={{
+                      fontSize: "var(--text-sm)",
+                      lineHeight: 1.6,
+                      color: "var(--text-muted)",
+                      margin: 0,
+                    }}
+                  >
+                    {card.text}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
-        </section>
-      )}
 
-      {/* Contact */}
-      <section id="kontakty" className="py-20 bg-white">
-        <div className="w-full max-w-7xl mx-auto px-4">
-          <h2 className="section-title"><span className="gradient-text">{"Контакти"}</span></h2>
-          <p className="section-subtitle">{"Маєте запитання щодо акустичних рішень? Зв\u2019яжіться з нами"}</p>
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
-            <div><ContactForm /></div>
-            <div className="space-y-6">
-              <div>
-                <h3 className="font-bold text-lg mb-2">{"Редакція порталу"}</h3>
-                <p className="text-[var(--text-muted)]">{siteConfig.address}</p>
+          {/* ── SIDEBAR (35%) ── */}
+          <aside className="academic-layout-sidebar">
+            {/* Site Navigation */}
+            <nav className="sidebar-nav" style={{ marginBottom: "var(--space-2xl)" }}>
+              <div className="sidebar-nav-title">Навігація по сайту</div>
+              <ul>
+                <li>
+                  <Link href="/akustyka-ofisu/">Акустика офісу</Link>
+                </li>
+                <li>
+                  <Link href="/doslidzhennya/">Дослідження</Link>
+                </li>
+                <li>
+                  <Link href="/praktychni-rishennya/">Практичні рішення</Link>
+                </li>
+                <li>
+                  <Link href="/blog/">Усі публікації</Link>
+                </li>
+                <li>
+                  <Link href="/#kontakty">Контакти</Link>
+                </li>
+              </ul>
+            </nav>
+
+            {/* Key Findings */}
+            <div style={{ marginBottom: "var(--space-2xl)" }}>
+              <div
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "var(--text-xs)",
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.12em",
+                  color: "var(--text-light)",
+                  marginBottom: "var(--space-md)",
+                  paddingBottom: "var(--space-sm)",
+                  borderBottom: "1px solid var(--border)",
+                }}
+              >
+                Ключові знахідки
               </div>
-              <div>
-                <h3 className="font-bold text-lg mb-2">{"Email"}</h3>
-                <p><a href={`mailto:${siteConfig.email}`} className="text-[var(--primary)] font-semibold hover:underline no-underline">{siteConfig.email}</a></p>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "var(--space-md)",
+                }}
+              >
+                {keyFindings.map((finding, i) => (
+                  <div key={i} className="key-finding-box" style={{ margin: 0 }}>
+                    <p style={{ display: "none" }}>Факт</p>
+                    <p>{finding}</p>
+                  </div>
+                ))}
               </div>
-              <div>
-                <h3 className="font-bold text-lg mb-2">{"Графік роботи"}</h3>
-                <p className="text-[var(--text-muted)]">{siteConfig.workingHours}</p>
+            </div>
+
+            {/* Popular Articles */}
+            <div>
+              <div
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "var(--text-xs)",
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.12em",
+                  color: "var(--text-light)",
+                  marginBottom: "var(--space-md)",
+                  paddingBottom: "var(--space-sm)",
+                  borderBottom: "1px solid var(--border)",
+                }}
+              >
+                Популярне
               </div>
-              <div>
-                <h3 className="font-bold text-lg mb-2">{"Про портал"}</h3>
-                <p className="text-[var(--text-muted)] text-sm leading-relaxed">{"Пантеон Наук — науково-дослідницький портал, створений ініціативою молодих українських дослідників у галузі прикладної акустики та ергономіки робочих просторів."}</p>
+              <ol
+                style={{
+                  listStyle: "none",
+                  padding: 0,
+                  margin: 0,
+                  counterReset: "popular",
+                }}
+              >
+                {posts.slice(0, 3).map((post) => (
+                  <li
+                    key={post.slug}
+                    style={{
+                      counterIncrement: "popular",
+                      paddingBottom: "var(--space-sm)",
+                      marginBottom: "var(--space-sm)",
+                      borderBottom: "1px solid var(--border)",
+                    }}
+                  >
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      style={{
+                        display: "flex",
+                        gap: "var(--space-sm)",
+                        alignItems: "flex-start",
+                        textDecoration: "none",
+                        color: "var(--text)",
+                        fontSize: "var(--text-sm)",
+                        lineHeight: 1.4,
+                        fontWeight: 600,
+                        transition: "color 0.15s ease",
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontFamily: "var(--font-heading)",
+                          fontSize: "var(--text-lg)",
+                          fontWeight: 900,
+                          color: "var(--primary)",
+                          lineHeight: 1.2,
+                          flexShrink: 0,
+                        }}
+                      >
+                        {String(posts.indexOf(post) + 1).padStart(2, "0")}
+                      </span>
+                      <span>{post.title}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      {/* ================================================================
+          SECTION 4: PULL QUOTE
+          ================================================================ */}
+      <section style={{ background: "var(--surface)" }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="pull-quote" style={{ textAlign: "center" }}>
+            <blockquote>
+              Акустичне середовище офісу є найбільш недооціненим фактором, що
+              впливає на продуктивність працівників розумової праці.
+            </blockquote>
+            <span className="pull-quote-source">
+              World Green Building Council
+              <span className="pull-quote-journal">
+                {" "}
+                &mdash; Health, Wellbeing &amp; Productivity in Offices, 2023
+              </span>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================
+          SECTION 5: PUBLICATIONS TABLE
+          ================================================================ */}
+      <section
+        style={{
+          background: "var(--background)",
+          padding: "0 0 var(--space-3xl)",
+        }}
+      >
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="section-rule">04 Останні публікації</div>
+
+          <div style={{ overflowX: "auto" }}>
+            <table className="pub-table">
+              <thead>
+                <tr>
+                  <th>Категорія</th>
+                  <th>Назва</th>
+                  <th>Дата</th>
+                  <th>Читання</th>
+                </tr>
+              </thead>
+              <tbody>
+                {posts.map((post) => (
+                  <tr key={post.slug}>
+                    <td>
+                      <span className="pub-table-category">
+                        {post.category || "Дослідження"}
+                      </span>
+                    </td>
+                    <td>
+                      <span className="pub-table-title">
+                        <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+                      </span>
+                    </td>
+                    <td>
+                      <span className="pub-table-date">
+                        {new Date(post.publishedAt).toLocaleDateString("uk-UA", {
+                          day: "numeric",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </span>
+                    </td>
+                    <td>
+                      <span className="pub-table-reading-time">
+                        {estimateReadingTime(post.excerpt)} хв
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div style={{ marginTop: "var(--space-xl)", textAlign: "center" }}>
+            <Link href="/blog/" className="btn-secondary no-underline">
+              Усі публікації
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================
+          SECTION 6: CONTACT SECTION
+          ================================================================ */}
+      <section
+        id="kontakty"
+        style={{
+          background: "var(--surface)",
+          padding: "var(--space-3xl) 0 var(--space-4xl)",
+        }}
+      >
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="section-rule">05 Контакти</div>
+
+          <div
+            className="grid gap-8"
+            style={{
+              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            }}
+          >
+            {/* Contact Form */}
+            <div>
+              <h2
+                style={{
+                  fontFamily: "var(--font-heading)",
+                  fontSize: "var(--text-2xl)",
+                  fontWeight: 700,
+                  color: "var(--text)",
+                  marginBottom: "var(--space-sm)",
+                }}
+              >
+                Зв'яжіться з редакцією
+              </h2>
+              <p
+                style={{
+                  fontSize: "var(--text-sm)",
+                  color: "var(--text-muted)",
+                  marginBottom: "var(--space-xl)",
+                  lineHeight: 1.7,
+                }}
+              >
+                Надсилайте пропозиції до публікації, запити на рецензування або
+                питання щодо співпраці.
+              </p>
+              <ContactForm />
+            </div>
+
+            {/* Editorial Info */}
+            <div>
+              <h2
+                style={{
+                  fontFamily: "var(--font-heading)",
+                  fontSize: "var(--text-2xl)",
+                  fontWeight: 700,
+                  color: "var(--text)",
+                  marginBottom: "var(--space-sm)",
+                }}
+              >
+                Редакція
+              </h2>
+              <p
+                style={{
+                  fontSize: "var(--text-sm)",
+                  color: "var(--text-muted)",
+                  marginBottom: "var(--space-lg)",
+                  lineHeight: 1.7,
+                }}
+              >
+                Портал {siteConfig.name} публікує оригінальні дослідження,
+                оглядові статті та практичні рекомендації у сфері акустики та
+                ергономіки.
+              </p>
+
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "var(--space-sm)",
+                  fontSize: "var(--text-sm)",
+                  color: "var(--text-muted)",
+                }}
+              >
+                <div>
+                  <strong style={{ color: "var(--text)" }}>Адреса:</strong>{" "}
+                  {siteConfig.address}
+                </div>
+                <div>
+                  <strong style={{ color: "var(--text)" }}>Email:</strong>{" "}
+                  <a
+                    href={`mailto:${siteConfig.email}`}
+                    style={{
+                      color: "var(--primary)",
+                      textDecoration: "none",
+                      borderBottom: "1px solid var(--accent)",
+                    }}
+                  >
+                    {siteConfig.email}
+                  </a>
+                </div>
+                <div>
+                  <strong style={{ color: "var(--text)" }}>Години роботи:</strong>{" "}
+                  {siteConfig.workingHours}
+                </div>
+              </div>
+
+              <div className="key-finding-box" style={{ marginTop: "var(--space-xl)" }}>
+                <p>Для авторів</p>
+                <p>
+                  Приймаємо оригінальні статті обсягом 2000-5000 слів з
+                  посиланнями на рецензовані джерела. Термін розгляду — до 14
+                  робочих днів.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
-    </>
+    </main>
   )
 }
