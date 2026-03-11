@@ -1,53 +1,302 @@
 import Link from "next/link"
-import { generatePageMetadata } from "@/lib/seo"
+import type { Metadata } from "next"
+import { siteConfig } from "../../site.config"
 
-export const metadata = generatePageMetadata({
-  title: "Практичні рішення — огляди та вибір акустичних кабін",
-  description: "Огляди акустичних кабін для офісу, покрокові гіди з вибору та реальні кейси впровадження в українських офісах.",
-  path: "/praktychni-rishennya/",
-  keywords: ["огляд акустичних кабін", "як обрати офісну кабіну", "кейси впровадження", "офісні кабіни"],
-})
+export const metadata: Metadata = {
+  title: `Практичні рішення — ${siteConfig.name}`,
+  description:
+    "Конкретні акустичні рішення та рекомендації для сучасних офісів",
+}
 
-const sectionArticles = [
-  { slug: "ohlyad-akustychnykh-kabin", title: "Огляд акустичних кабін 2025", description: "Порівняння характеристик, матеріалів, систем вентиляції та комплектації провідних моделей на ринку." },
-  { slug: "yak-obraty-ofisnu-kabinu", title: "Як обрати офісну кабіну", description: "Покроковий гід від науковців: від визначення потреби до перевірки сертифікатів." },
-  { slug: "vprovadzhennya-ta-keysy", title: "Кейси впровадження", description: "Реальні приклади встановлення акустичних кабін в українських IT-компаніях, банках та коворкінгах." },
+const articles = [
+  {
+    num: "01",
+    title: "Акустичні кабіни для офісу: гід",
+    href: "/blog/akustychni-kabiny-dlya-ofisu-gid/",
+    summary:
+      "Повний посібник з вибору акустичних кабін: класифікація за типом, порівняння характеристик звукоізоляції та рекомендації щодо розміщення.",
+  },
+  {
+    num: "02",
+    title: "Кабіни для переговорів",
+    href: "/blog/kabiny-dlya-perehovoriv-pryvatnist-komfort/",
+    summary:
+      "Огляд рішень для забезпечення приватності переговорів: від компактних телефонних будок до повнорозмірних конференц-модулів з акустичною ізоляцією.",
+  },
+  {
+    num: "03",
+    title: "Вентиляція в офісних кабінах",
+    href: "/blog/ventylyatsiya-v-ofisnykh-kabinakh/",
+    summary:
+      "Інженерні аспекти забезпечення повітрообміну в герметичних акустичних конструкціях без компромісу у звукоізоляційних характеристиках.",
+  },
+  {
+    num: "04",
+    title: "Як встановити офісну кабіну",
+    href: "/blog/yak-vstanovyty-ofisnu-kabinu/",
+    summary:
+      "Покрокова інструкція з монтажу: підготовка приміщення, вимоги до підлоги, електропідключення та введення в експлуатацію.",
+  },
+  {
+    num: "05",
+    title: "Zoom-кабіна для офісу",
+    href: "/blog/zoom-kabina-dlya-ofisu/",
+    summary:
+      "Спеціалізовані рішення для відеоконференцій: акустичні вимоги, освітлення, камера та мікрофонне обладнання для якісного зв'язку.",
+  },
 ]
 
 export default function PraktychniRishennyaPage() {
   return (
-    <div className="pt-24 pb-20 bg-[var(--background)]">
-      <div className="w-full max-w-7xl mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center mb-12">
-          <span className="inline-block px-4 py-1.5 bg-[var(--accent-light)] rounded-full text-sm font-medium mb-4 text-[var(--accent-dark)]">Комерційний розділ</span>
-          <h1 className="text-3xl md:text-4xl font-bold mb-4" style={{ fontFamily: "Merriweather, serif" }}>
-            {"Практичні "}
-            <span className="gradient-text">{"рішення"}</span>
-          </h1>
-          <p className="text-lg text-[var(--text-muted)] leading-relaxed">
-            Від теорії до практики: огляди реальних продуктів, покрокові інструкції з вибору та досвід впровадження акустичних рішень в українських офісах.
+    <main>
+      {/* ================================================================
+          HERO — Section title with academic styling
+          ================================================================ */}
+      <section
+        style={{
+          background: "var(--surface)",
+          padding: "var(--space-4xl) 0 var(--space-3xl)",
+        }}
+      >
+        <div className="max-w-5xl mx-auto px-6">
+          <p
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "var(--text-xs)",
+              fontWeight: 600,
+              textTransform: "uppercase",
+              letterSpacing: "0.15em",
+              color: "var(--text-light)",
+              marginBottom: "var(--space-lg)",
+            }}
+          >
+            Розділ дослідницького порталу
           </p>
-        </div>
 
-        <div className="grid gap-6 md:gap-8 max-w-4xl mx-auto">
-          {sectionArticles.map((article) => (
-            <Link key={article.slug} href={`/blog/${article.slug}/`} className="card no-underline group">
-              <div className="p-6 md:p-8">
-                <h2 className="text-xl font-bold mb-3 text-[var(--text)] group-hover:text-[var(--primary)] transition-colors" style={{ fontFamily: "Merriweather, serif" }}>
-                  {article.title}
-                </h2>
-                <p className="text-[var(--text-muted)] leading-relaxed mb-4">{article.description}</p>
-                <span className="text-[var(--primary)] font-semibold text-sm">{"Читати \u2192"}</span>
+          <h1
+            style={{
+              fontFamily: "var(--font-heading)",
+              fontSize: "clamp(1.75rem, 4vw, 2.75rem)",
+              fontWeight: 900,
+              lineHeight: 1.2,
+              color: "var(--text)",
+              maxWidth: "720px",
+              marginBottom: "var(--space-xl)",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            Практичні рішення
+          </h1>
+
+          <p
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "var(--text-lg)",
+              lineHeight: 1.7,
+              color: "var(--text-muted)",
+              maxWidth: "600px",
+              marginBottom: "var(--space-2xl)",
+            }}
+          >
+            Конкретні акустичні рішення та рекомендації для сучасних офісів.
+            Від вибору обладнання до монтажу та введення в експлуатацію.
+          </p>
+
+          <div className="key-finding-box" style={{ maxWidth: "600px" }}>
+            <p>Практичний результат</p>
+            <p>
+              Впровадження акустичних кабін знижує рівень відволікань на{" "}
+              <strong>51%</strong> та підвищує задоволеність працівників
+              робочим середовищем на <strong>37%</strong> за даними
+              post-occupancy досліджень.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================
+          ARTICLES LIST — Section-rule numbered cards
+          ================================================================ */}
+      <section
+        style={{
+          background: "var(--background)",
+          padding: "var(--space-3xl) 0",
+        }}
+      >
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="section-rule">01 Посібники та рекомендації</div>
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "var(--space-lg)",
+            }}
+          >
+            {articles.map((article) => (
+              <Link
+                key={article.num}
+                href={article.href}
+                className="no-underline"
+                style={{ display: "block" }}
+              >
+                <div
+                  className="card"
+                  style={{
+                    padding: "var(--space-xl)",
+                    display: "flex",
+                    gap: "var(--space-lg)",
+                    alignItems: "flex-start",
+                    transition: "border-color 0.15s ease",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: "var(--font-heading)",
+                      fontSize: "var(--text-2xl)",
+                      fontWeight: 900,
+                      color: "var(--primary)",
+                      lineHeight: 1.2,
+                      flexShrink: 0,
+                      width: "2.5rem",
+                    }}
+                  >
+                    {article.num}
+                  </span>
+                  <div>
+                    <h2
+                      style={{
+                        fontFamily: "var(--font-heading)",
+                        fontSize: "var(--text-xl)",
+                        fontWeight: 700,
+                        color: "var(--text)",
+                        marginBottom: "var(--space-xs)",
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      {article.title}
+                    </h2>
+                    <p
+                      style={{
+                        fontSize: "var(--text-sm)",
+                        lineHeight: 1.7,
+                        color: "var(--text-muted)",
+                        margin: 0,
+                      }}
+                    >
+                      {article.summary}
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================
+          CROSS-NAVIGATION
+          ================================================================ */}
+      <section
+        style={{
+          background: "var(--surface)",
+          padding: "var(--space-3xl) 0 var(--space-4xl)",
+        }}
+      >
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="section-rule">02 Інші розділи</div>
+
+          <div
+            className="grid gap-4"
+            style={{
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            }}
+          >
+            <Link href="/akustyka-ofisu/" className="no-underline">
+              <div className="card" style={{ padding: "var(--space-xl)" }}>
+                <h3
+                  style={{
+                    fontFamily: "var(--font-heading)",
+                    fontSize: "var(--text-lg)",
+                    fontWeight: 700,
+                    color: "var(--primary)",
+                    marginBottom: "var(--space-xs)",
+                    lineHeight: 1.3,
+                  }}
+                >
+                  Акустика офісу
+                </h3>
+                <p
+                  style={{
+                    fontSize: "var(--text-sm)",
+                    lineHeight: 1.6,
+                    color: "var(--text-muted)",
+                    margin: 0,
+                  }}
+                >
+                  Дослідження впливу шуму на продуктивність та когнітивні
+                  функції працівників.
+                </p>
               </div>
             </Link>
-          ))}
-        </div>
 
-        <div className="mt-16 text-center">
-          <Link href="/akustyka-ofisu/" className="btn-primary" style={{ marginRight: "1rem" }}>{"Акустика офісу"}</Link>
-          <Link href="/doslidzhennya/" className="btn-secondary">{"Дослідження"}</Link>
+            <Link href="/doslidzhennya/" className="no-underline">
+              <div className="card" style={{ padding: "var(--space-xl)" }}>
+                <h3
+                  style={{
+                    fontFamily: "var(--font-heading)",
+                    fontSize: "var(--text-lg)",
+                    fontWeight: 700,
+                    color: "var(--primary)",
+                    marginBottom: "var(--space-xs)",
+                    lineHeight: 1.3,
+                  }}
+                >
+                  Дослідження
+                </h3>
+                <p
+                  style={{
+                    fontSize: "var(--text-sm)",
+                    lineHeight: 1.6,
+                    color: "var(--text-muted)",
+                    margin: 0,
+                  }}
+                >
+                  Наукові публікації та дослідження у сфері акустики та
+                  ергономіки робочих просторів.
+                </p>
+              </div>
+            </Link>
+
+            <Link href="/blog/" className="no-underline">
+              <div className="card" style={{ padding: "var(--space-xl)" }}>
+                <h3
+                  style={{
+                    fontFamily: "var(--font-heading)",
+                    fontSize: "var(--text-lg)",
+                    fontWeight: 700,
+                    color: "var(--primary)",
+                    marginBottom: "var(--space-xs)",
+                    lineHeight: 1.3,
+                  }}
+                >
+                  Усі публікації
+                </h3>
+                <p
+                  style={{
+                    fontSize: "var(--text-sm)",
+                    lineHeight: 1.6,
+                    color: "var(--text-muted)",
+                    margin: 0,
+                  }}
+                >
+                  Повний архів статей та матеріалів порталу {siteConfig.name}.
+                </p>
+              </div>
+            </Link>
+          </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   )
 }
