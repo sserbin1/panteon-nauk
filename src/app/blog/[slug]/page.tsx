@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import Link from "next/link"
 import { getAllPosts, getPostBySlug, getPostBySlugWithHtml } from "@/lib/blog"
 import { generatePageMetadata, generateArticleJsonLd } from "@/lib/seo"
 import PostContent from "@/components/blog/PostContent"
@@ -25,24 +24,33 @@ export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = await params
   const post = await getPostBySlugWithHtml(slug)
   const jsonLd = generateArticleJsonLd(post)
+
   return (
-    <div className="pt-24 pb-20 bg-[var(--background)]">
+    <main className="max-w-3xl mx-auto px-4 py-16">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <article className="w-full max-w-3xl mx-auto px-4">
-        <div className="mb-6">
-          <Link href="/blog/" className="text-[var(--primary)] text-sm font-medium hover:underline no-underline">{"\u2190 Назад до публікацій"}</Link>
-        </div>
-        <div className="bg-white rounded-2xl p-8 md:p-12 shadow-sm">
-          <header className="mb-8">
-            {post.category && <span className="text-xs font-bold uppercase tracking-wider text-[var(--primary)]">{post.category}</span>}
-            <h1 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4" style={{ fontFamily: "Merriweather, serif" }}>{post.title}</h1>
-            <time className="text-[var(--text-muted)] text-sm" dateTime={post.publishedAt}>
-              {new Date(post.publishedAt).toLocaleDateString("uk-UA", { year: "numeric", month: "long", day: "numeric" })}
-            </time>
-          </header>
-          {post.htmlContent && <PostContent htmlContent={post.htmlContent} />}
-        </div>
+      <article>
+        <header className="mb-8">
+          {post.category && (
+            <span className="text-xs text-[var(--accent,var(--primary))] uppercase tracking-wider font-bold">{post.category}</span>
+          )}
+          <h1 className="text-3xl md:text-4xl font-bold mt-2">{post.title}</h1>
+          <time className="text-[var(--text-muted)] mt-2 block text-sm" dateTime={post.publishedAt}>
+            {new Date(post.publishedAt).toLocaleDateString("uk-UA", { year: "numeric", month: "long", day: "numeric" })}
+          </time>
+        </header>
+        {post.image && (
+          <div className="mb-8 rounded-xl overflow-hidden">
+            <img
+              src={post.image}
+              alt={post.title}
+              width={768}
+              height={432}
+              className="w-full h-auto object-cover"
+            />
+          </div>
+        )}
+        {post.htmlContent && <PostContent htmlContent={post.htmlContent} />}
       </article>
-    </div>
+    </main>
   )
 }
