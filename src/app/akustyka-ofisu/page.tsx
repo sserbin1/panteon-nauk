@@ -12,28 +12,32 @@ const articles = [
   {
     num: "01",
     title: "Шум у офісі: 7 способів боротьби",
-    href: "/blog/shum-u-ofisi-7-sposobiv-borotby/",
+    href: "/blog/vplyv-shumu-na-produktyvnist/",
+    image: "/images/blog/vplyv-shumu-na-produktyvnist.webp",
     summary:
       "Практичні методи зниження рівня шуму у відкритих офісних просторах — від архітектурних рішень до індивідуальних засобів захисту.",
   },
   {
     num: "02",
     title: "Основи акустичного дизайну",
-    href: "/blog/osnovy-akustychnoho-dyzainu/",
+    href: "/blog/akustychnyy-dyzayn-ofisu/",
+    image: "/images/blog/akustychnyy-dyzayn-ofisu.webp",
     summary:
       "Фундаментальні принципи акустичного проєктування комерційних приміщень: реверберація, поглинання, ізоляція та маскування.",
   },
   {
     num: "03",
     title: "Децибели простими словами",
-    href: "/blog/detsybely-prostymy-slovamy/",
+    href: "/blog/decybely-shcho-tse/",
+    image: "/images/blog/decybely-shcho-tse.webp",
     summary:
       "Доступне пояснення логарифмічної шкали вимірювання звуку та її практичне значення для оцінки акустичного середовища.",
   },
   {
     num: "04",
     title: "Норми шуму в офісі: Україна",
-    href: "/blog/normy-shumu-v-ofisi-ukrayina/",
+    href: "/blog/riven-shumu-v-ofisi/",
+    image: "/images/blog/riven-shumu-v-ofisi.webp",
     summary:
       "Огляд чинних нормативних документів України щодо допустимих рівнів шуму на робочих місцях та санітарних вимог.",
   },
