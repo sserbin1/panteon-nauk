@@ -12,28 +12,32 @@ const articles = [
   {
     num: "01",
     title: "Акустичний комфорт: шум та здоров'я",
-    href: "/blog/akustychnyi-komfort-shum-zdorovya/",
+    href: "/blog/akustychni-materialy/",
+    image: "/images/blog/akustychni-materialy.webp",
     summary:
       "Систематичний огляд впливу хронічного шумового навантаження на фізичне та психічне здоров'я офісних працівників. Аналіз кортизолових маркерів стресу.",
   },
   {
     num: "02",
     title: "Як з'явилися відкриті офіси",
-    href: "/blog/yak-zyavylysya-vidkryti-ofisy/",
+    href: "/blog/istoria-akustyky/",
+    image: "/images/blog/istoria-akustyky.webp",
     summary:
       "Історичний аналіз еволюції офісних просторів від Bürolandschaft 1950-х до сучасних концепцій activity-based working та їх акустичні наслідки.",
   },
   {
     num: "03",
     title: "Ергономіка робочого місця",
-    href: "/blog/erhonomika-robochoho-mistsya/",
+    href: "/blog/erghonomika-robochykh-mists/",
+    image: "/images/blog/erghonomika-robochykh-mists.webp",
     summary:
       "Комплексний підхід до організації робочого місця з урахуванням антропометрії, освітлення, мікроклімату та акустичних параметрів згідно ISO 9241.",
   },
   {
     num: "04",
     title: "ROI акустичних кабін",
-    href: "/blog/roi-akustychnykh-kabin/",
+    href: "/blog/ohlyad-akustychnykh-kabin/",
+    image: "/images/blog/ohlyad-akustychnykh-kabin.webp",
     summary:
       "Кількісна оцінка повернення інвестицій у акустичні рішення: методологія розрахунку, кейси впровадження та порівняльний аналіз витрат.",
   },
