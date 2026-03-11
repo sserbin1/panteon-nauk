@@ -46,6 +46,7 @@ export default function BlogListPage() {
                       {new Date(post.publishedAt).toLocaleDateString("uk-UA", { year: "numeric", month: "2-digit", day: "2-digit" })}
                     </td>
                     <td>
+                      {post.image && <img src={post.image} alt={post.title} className="w-full h-32 object-cover rounded mb-2" loading="lazy" />}
                       <Link href={`/blog/${post.slug}/`} className="text-[var(--text)] hover:text-[var(--primary)] no-underline font-medium transition-colors">
                         {post.title}
                       </Link>
