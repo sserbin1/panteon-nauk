@@ -1,6 +1,6 @@
 import Link from "next/link"
 import type { Metadata } from "next"
-import { siteConfig } from "../../site.config"
+import { siteConfig } from "../../../site.config"
 
 export const metadata: Metadata = {
   title: `Практичні рішення — ${siteConfig.name}`,
