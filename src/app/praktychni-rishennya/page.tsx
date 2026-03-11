@@ -158,6 +158,7 @@ export default function PraktychniRishennyaPage() {
                     transition: "border-color 0.15s ease",
                   }}
                 >
+                  {article.image && <img src={article.image} alt={article.title} className="w-full h-48 object-cover rounded-lg mb-4" loading="lazy" />}
                   <span
                     style={{
                       fontFamily: "var(--font-heading)",
