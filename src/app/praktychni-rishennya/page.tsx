@@ -12,21 +12,24 @@ const articles = [
   {
     num: "01",
     title: "Акустичні кабіни для офісу: гід",
-    href: "/blog/akustychni-kabiny-dlya-ofisu-gid/",
+    href: "/blog/akustychni-kabiny-dlya-ofisu/",
+    image: "/images/blog/akustychni-kabiny-dlya-ofisu.webp",
     summary:
       "Повний посібник з вибору акустичних кабін: класифікація за типом, порівняння характеристик звукоізоляції та рекомендації щодо розміщення.",
   },
   {
     num: "02",
     title: "Кабіни для переговорів",
-    href: "/blog/kabiny-dlya-perehovoriv-pryvatnist-komfort/",
+    href: "/blog/kabiny-dlya-perehovoriv/",
+    image: "/images/blog/kabiny-dlya-perehovoriv.webp",
     summary:
       "Огляд рішень для забезпечення приватності переговорів: від компактних телефонних будок до повнорозмірних конференц-модулів з акустичною ізоляцією.",
   },
   {
     num: "03",
     title: "Вентиляція в офісних кабінах",
-    href: "/blog/ventylyatsiya-v-ofisnykh-kabinakh/",
+    href: "/blog/ventylyatsiya-v-akustychniy-kabini/",
+    image: "/images/blog/ventylyatsiya-v-akustychniy-kabini.webp",
     summary:
       "Інженерні аспекти забезпечення повітрообміну в герметичних акустичних конструкціях без компромісу у звукоізоляційних характеристиках.",
   },
