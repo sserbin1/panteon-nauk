@@ -7,34 +7,49 @@ import LeadModal from '@/components/forms/LeadModal'
 const PRODUCTS = [
   {
     id: 'solo',
-    name: 'SilentBox Solo',
+    name: 'SilentBox Classic',
     capacity: '1 особа',
     description: 'Індивідуальна акустична кабіна для телефонних дзвінків та зосередженої роботи. Ідеальна для open-space офісів.',
     features: ['Звукоізоляція 35 дБ', 'LED-освітлення 450 Lux', 'Вентиляція 120 м³/год', 'Розетка 220V + USB-C', 'Датчик руху'],
     dimensions: '120 × 120 × 230 см',
-    image: '/images/kabiny/solo.webp',
+    image: '/images/kabiny/classic.png',
     color: '#3B82F6',
   },
   {
     id: 'duo',
-    name: 'SilentBox Duo',
+    name: 'SilentBox Duet',
     capacity: '2 особи',
     description: 'Кабіна для невеликих зустрічей та парних відеодзвінків. Комфортний простір для двох.',
     features: ['Звукоізоляція 35 дБ', 'Стіл для ноутбуків', 'Подвійна вентиляція', '2× розетки 220V + USB-C', 'Акустичні панелі'],
     dimensions: '160 × 120 × 230 см',
-    image: '/images/kabiny/duo.webp',
+    image: '/images/kabiny/duet.png',
     color: '#8B5CF6',
   },
   {
     id: 'team',
-    name: 'SilentBox Team',
-    capacity: '3-4 особи',
+    name: 'SilentBox Quartet',
+    capacity: '4 особи',
     description: 'Просторна кабіна для командних нарад, брейнштормів та відеоконференцій.',
     features: ['Звукоізоляція 35 дБ', 'Конференц-стіл', 'Монітор-кріплення', '4× розетки + USB-C', 'Підсилена вентиляція', 'Скляні стінки'],
     dimensions: '220 × 160 × 230 см',
-    image: '/images/kabiny/team.webp',
+    image: '/images/kabiny/quartet.png',
     color: '#059669',
   },
+]
+
+const GALLERY = [
+  { src: '/images/kabiny/office1.jpg', alt: 'Акустична кабіна SilentBox в сучасному офісі' },
+  { src: '/images/kabiny/office2.jpg', alt: 'SilentBox в open-space офісі' },
+  { src: '/images/kabiny/office3.jpg', alt: 'Кабіна для переговорів в офісному просторі' },
+  { src: '/images/kabiny/office4.jpg', alt: 'Звукоізоляційна кабіна в коворкінгу' },
+  { src: '/images/kabiny/office5.jpg', alt: 'SilentBox кабіна для дзвінків' },
+  { src: '/images/kabiny/office6.jpg', alt: 'Офісна кабіна SilentBox - вигляд зсередини' },
+  { src: '/images/kabiny/office7.jpg', alt: 'Кабіна SilentBox в інтер\'єрі офісу' },
+  { src: '/images/kabiny/office8.jpg', alt: 'Акустичні кабіни в сучасному робочому просторі' },
+  { src: '/images/kabiny/office9.jpg', alt: 'SilentBox кабіна для відеоконференцій' },
+  { src: '/images/kabiny/office10.jpg', alt: 'Зона приватності з кабінами SilentBox' },
+  { src: '/images/kabiny/office11.jpg', alt: 'SilentBox кабіна в дизайнерському офісі' },
+  { src: '/images/kabiny/office12.jpg', alt: 'Кабіна для зосередженої роботи в офісі' },
 ]
 
 const ADVANTAGES = [
@@ -80,25 +95,21 @@ export default function CatalogPage() {
         </div>
 
         {/* Products */}
-        <div className="space-y-12 mb-20">
+        <div className="space-y-16 mb-20">
           {PRODUCTS.map((product, index) => (
             <div
               key={product.id}
               className={`flex flex-col ${index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-8 items-center`}
             >
-              {/* Image placeholder */}
+              {/* Product image */}
               <div className="w-full lg:w-1/2">
-                <div
-                  className="aspect-[4/3] rounded-2xl flex items-center justify-center"
-                  style={{ backgroundColor: `${product.color}10`, border: `2px solid ${product.color}20` }}
-                >
-                  <div className="text-center px-8">
-                    <div className="text-5xl font-bold mb-2" style={{ color: product.color }}>
-                      {product.capacity}
-                    </div>
-                    <div className="text-lg font-medium text-gray-500">{product.name}</div>
-                    <div className="text-xs text-gray-400 mt-2">{product.dimensions}</div>
-                  </div>
+                <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gray-50">
+                  <img
+                    src={product.image}
+                    alt={`${product.name} — акустична кабіна для ${product.capacity}`}
+                    className="w-full h-full object-contain"
+                    loading="lazy"
+                  />
                 </div>
               </div>
 
@@ -108,7 +119,8 @@ export default function CatalogPage() {
                   {product.capacity}
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-3">{product.name}</h2>
-                <p className="text-gray-600 mb-6">{product.description}</p>
+                <p className="text-gray-600 mb-4">{product.description}</p>
+                <p className="text-sm text-gray-400 mb-4">Розміри: {product.dimensions}</p>
 
                 <ul className="space-y-2 mb-6">
                   {product.features.map((feature) => (
@@ -129,6 +141,26 @@ export default function CatalogPage() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Office Gallery */}
+        <div className="mb-20">
+          <h2 className="text-2xl font-bold text-gray-900 text-center mb-3">Як виглядають кабіни в офісі</h2>
+          <p className="text-gray-500 text-center mb-10 max-w-xl mx-auto">
+            Реальні фотографії акустичних кабін SilentBox в офісних просторах наших клієнтів
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            {GALLERY.map((photo) => (
+              <div key={photo.src} className="aspect-square rounded-xl overflow-hidden bg-gray-100">
+                <img
+                  src={photo.src}
+                  alt={photo.alt}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Advantages */}
