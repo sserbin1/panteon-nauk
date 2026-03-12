@@ -8,6 +8,7 @@ const categoryTabs = [
   { href: "/akustyka-ofisu/", label: "Акустика офісу" },
   { href: "/doslidzhennya/", label: "Дослідження" },
   { href: "/praktychni-rishennya/", label: "Практичні рішення" },
+  { href: "/kabiny/", label: "Кабіни SilentBox" },
   { href: "/blog/", label: "Публікації" },
 ]
 
