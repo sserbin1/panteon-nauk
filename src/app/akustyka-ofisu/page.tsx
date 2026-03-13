@@ -85,7 +85,7 @@ export default function AkustykaOfisuPage() {
             Акустика офісу
           </h1>
           <div className="my-8 overflow-hidden border border-[var(--border)]">
-            <img src="/images/acoustic-research.png" alt="Дослідження акустики офісних просторів" width={1200} height={675} className="w-full h-auto object-cover" />
+            <img src="/images/acoustic-research.webp" alt="Дослідження акустики офісних просторів" width={1200} height={675} className="w-full h-auto object-cover" loading="lazy" />
           </div>
 
           <p
