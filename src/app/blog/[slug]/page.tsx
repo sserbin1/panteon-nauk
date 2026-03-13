@@ -13,6 +13,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params
   const post = getPostBySlug(slug)
   return generatePageMetadata({
+    ogType: 'article',
+    ogImage: post.image || undefined,
     title: post.metaTitle || post.title,
     description: post.metaDescription || post.excerpt,
     path: `/blog/${post.slug}/`,

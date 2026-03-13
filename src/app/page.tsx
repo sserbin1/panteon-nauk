@@ -1,3 +1,9 @@
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  alternates: { canonical: "https://panteon-nauk.org.ua/" },
+}
+
 import Link from "next/link"
 import { siteConfig } from "../../site.config"
 import { getAllPosts } from "@/lib/blog"

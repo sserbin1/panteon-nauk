@@ -13,10 +13,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
   return [
-    { url: siteConfig.url, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
+    { url: `${siteConfig.url}/`, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
     { url: `${siteConfig.url}/akustyka-ofisu/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
     { url: `${siteConfig.url}/doslidzhennya/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
     { url: `${siteConfig.url}/praktychni-rishennya/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+    { url: `${siteConfig.url}/kabiny/`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${siteConfig.url}/blog/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
     ...blogUrls,
   ]
